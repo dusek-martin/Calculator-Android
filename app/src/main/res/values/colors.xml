@@ -5,4 +5,8 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="black_overlay">#66000000</color>
+
+    <!-- moje barvy-->
+    <color name="svetly_text">#FFBF00</color>
+    <color name="text_tlacitka">#C9FFE5</color>
 </resources>

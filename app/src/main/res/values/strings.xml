@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">TestAndroidAplikace</string>
 
+    <string name="show_calculator">Show Calculator</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

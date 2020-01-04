@@ -1,14 +1,15 @@
 package com.example.test;
 
 import android.annotation.SuppressLint;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 //TODO zkušební komentář
 
 /**
@@ -16,6 +17,9 @@ import android.view.View;
  * status bar and navigation/system bar) with user interaction.
  */
 public class FullscreenActivity extends AppCompatActivity {
+
+    // moje proměné
+    private Button buttonShowCalc;
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -109,6 +113,20 @@ public class FullscreenActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+        // můj kód
+        buttonShowCalc = (Button) findViewById(R.id.buttonShowCalc);
+        buttonShowCalc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivityCalculate();
+            }
+        });
+    }
+
+    public void openActivityCalculate(){
+        Intent intent = new Intent(this, calculate.class);
+        startActivity(intent);
     }
 
     @Override

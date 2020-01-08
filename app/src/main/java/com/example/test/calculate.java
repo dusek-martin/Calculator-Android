@@ -66,10 +66,6 @@ public class calculate extends AppCompatActivity {
         }
     }
 
-    public void squareRoot(android.view.View view) {
-
-    }
-
     public void negative(android.view.View view) {
         if (tvOperation.length() > 0) {
             tvSecondNumber.setText("-"+tvSecondNumber.getText().toString());
@@ -82,7 +78,7 @@ public class calculate extends AppCompatActivity {
         if (tvOperation.getText().toString().length() != 0) {
             equals(view);
             tvOperation.setText(((Button) view).getText());
-            if (tvWritedNumber.getText().toString().contentEquals("Error")) {
+            if (tvWritedNumber.getText().toString().contentEquals("NaN")) {
                 tvFirstNumber.setText("0");
             } else {
                 tvFirstNumber.setText(tvWritedNumber.getText());
@@ -94,9 +90,9 @@ public class calculate extends AppCompatActivity {
     }
 
     public void equals(android.view.View view) {
-        float a = Float.parseFloat(tvFirstNumber.getText().toString());
-        float b = Float.parseFloat(tvSecondNumber.getText().toString());
-        float e = 0;
+        double a = Double.parseDouble(tvFirstNumber.getText().toString());
+        double b = Double.parseDouble(tvSecondNumber.getText().toString());
+        double e = 0;
 
         switch (tvOperation.getText().toString()) {
             case "+":
@@ -110,10 +106,13 @@ public class calculate extends AppCompatActivity {
                 break;
             case "/":
                 if (b == 0) {
-                    tvWritedNumber.setText("Error");
+                    tvWritedNumber.setText("NaN");
                     return;
                 }
                 e = a / b;
+                break;
+            case "^":
+                e = Math.pow(a, b);
                 break;
             default:
                 break;

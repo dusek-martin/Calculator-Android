@@ -116,7 +116,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="SQR"
+                android:text="^"
                 android:background="@drawable/buttonshape"
                 android:shadowColor="#ffffffff"
                 android:shadowDx="0"
@@ -124,7 +124,7 @@
                 android:shadowRadius="10"
                 android:textColor="@color/text_tlacitka"
                 android:textSize="30sp"
-                android:onClick="squareRoot" />
+                android:onClick="writeOperation" />
 
             <Button
                 android:id="@+id/buttonNegative"

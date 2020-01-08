@@ -8,47 +8,120 @@ import android.widget.TextView;
 
 public class calculate extends AppCompatActivity {
 
-    TextView twFirstNumber;
+    private TextView tvFirstNumber, tvOperation, tvSecondNumber, tvWritedNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculate);
 
-        twFirstNumber = (TextView) findViewById(R.id.textViewFirstNumber);
+        tvFirstNumber = (TextView) findViewById(R.id.textViewFirstNumber);
+        tvOperation = (TextView) findViewById(R.id.textViewOperation);
+        tvSecondNumber = (TextView) findViewById(R.id.textViewSecondNumber);
+        tvWritedNumber = (TextView) findViewById(R.id.textViewWritedNumber);
     }
 
-    public void writeNumber(android.view.View view){
-        twFirstNumber.setText(((Button) view).getText());
+    public void writeNumber(android.view.View view) {
+        if (tvOperation.length() > 0) {
+            if (tvSecondNumber.getText().toString().length() > 10) return;
+            if (tvSecondNumber.getText().toString().contentEquals("0")) {
+                if (((Button) view).getText().toString().contentEquals(".")) {
+                    tvSecondNumber.append(((Button) view).getText());
+                } else {
+                    tvSecondNumber.setText(((Button) view).getText());
+                }
+            } else {
+                tvSecondNumber.append(((Button) view).getText());
+            }
+        } else {
+            if (tvFirstNumber.getText().toString().length() > 10) return;
+            if (tvFirstNumber.getText().toString().contentEquals("0")) {
+                if (((Button) view).getText().toString().contentEquals(".")) {
+                    tvFirstNumber.append(((Button) view).getText());
+                } else {
+                    tvFirstNumber.setText(((Button) view).getText());
+                }
+            } else {
+                tvFirstNumber.append(((Button) view).getText());
+            }
+        }
     }
-    public void clear(android.view.View view){
+
+    public void clear(android.view.View view) {
+        tvFirstNumber.setText("0");
+        tvOperation.setText("");
+        tvSecondNumber.setText("0");
+        tvWritedNumber.setText("0");
+    }
+
+    public void delete(android.view.View view) {
+        if (tvSecondNumber.getText().toString().length() != 1) {
+            tvSecondNumber.setText(tvSecondNumber.getText().toString().substring(0, (tvSecondNumber.getText().toString().length() - 1)));
+        } else if (!tvSecondNumber.getText().toString().contentEquals("0")) {
+            tvSecondNumber.setText("0");
+        } else if (tvFirstNumber.getText().toString().length() != 1) {
+            tvFirstNumber.setText(tvFirstNumber.getText().toString().substring(0, (tvFirstNumber.getText().toString().length() - 1)));
+        } else if (!tvFirstNumber.getText().toString().contentEquals("0")) {
+            tvFirstNumber.setText("0");
+        }
+    }
+
+    public void squareRoot(android.view.View view) {
 
     }
-    public void delete(android.view.View view){
 
+    public void negative(android.view.View view) {
+        if (tvOperation.length() > 0) {
+            tvSecondNumber.setText("-"+tvSecondNumber.getText().toString());
+        } else {
+            tvFirstNumber.setText("-"+tvFirstNumber.getText().toString());
+        }
     }
-    public void squareRoot(android.view.View view){
 
+    public void writeOperation(android.view.View view) {
+        if (tvOperation.getText().toString().length() != 0) {
+            equals(view);
+            tvOperation.setText(((Button) view).getText());
+            if (tvWritedNumber.getText().toString().contentEquals("Error")) {
+                tvFirstNumber.setText("0");
+            } else {
+                tvFirstNumber.setText(tvWritedNumber.getText());
+            }
+            tvSecondNumber.setText("0");
+        } else {
+            tvOperation.setText(((Button) view).getText());
+        }
     }
-    public void negative(android.view.View view){
 
-    }
-    public void divide(android.view.View view){
+    public void equals(android.view.View view) {
+        float a = Float.parseFloat(tvFirstNumber.getText().toString());
+        float b = Float.parseFloat(tvSecondNumber.getText().toString());
+        float e = 0;
 
-    }
-    public void multiply(android.view.View view){
-
-    }
-    public void minus(android.view.View view){
-
-    }
-    public void writeComma(android.view.View view){
-
-    }
-    public void plus(android.view.View view){
-
-    }
-    public void equals(android.view.View view){
-
+        switch (tvOperation.getText().toString()) {
+            case "+":
+                e = a + b;
+                break;
+            case "-":
+                e = a - b;
+                break;
+            case "*":
+                e = a * b;
+                break;
+            case "/":
+                if (b == 0) {
+                    tvWritedNumber.setText("Error");
+                    return;
+                }
+                e = a / b;
+                break;
+            default:
+                break;
+        }
+        if (String.valueOf(e).length() > 10 ) {
+            tvWritedNumber.setText(String.valueOf(e).substring(0,9));
+        } else {
+            tvWritedNumber.setText(String.valueOf(e));
+        }
     }
 }
